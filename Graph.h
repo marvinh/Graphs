@@ -32,7 +32,7 @@ public:
     void print();
 private:
     //need to reset visited array
-    //but still need to find disconnects
+    //and find disconnects
     void dfsUtil(int v);
     int* visited;
     int tableSize;
