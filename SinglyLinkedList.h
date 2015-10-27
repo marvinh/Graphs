@@ -20,27 +20,35 @@ public:
     SinglyLinkedList();
     SinglyLinkedList(const SinglyLinkedList<T>& RHS);
                                     //right hand side
-    SinglyLinkedList& operator=(const SinglyLinkedList& RHS);
+    SinglyLinkedList& operator=(const SinglyLinkedList<T> &RHS);
     ~SinglyLinkedList();
     void insert(int key,T data);
     void insert(int key);
     void remove();
     bool empty();
     void print();
-    Node<T>* front();
+    Node<T>* front() const;
 private:
     void removeAll(){
-        while (head!=NULL){
+        while (this->front()!=NULL){
             this->remove();
         }
     }
-    void copy(const SinglyLinkedList<T>& RHS){
+    void copy(const SinglyLinkedList<T> &RHS){
         //edge case for lists in same address
-        if(head!=RHS.front()){
-            this->removeAll;
-            Node<T> walker = RHS->front();
+        Node<T>* temp = RHS.front();
+        if(head!=temp){
+            this->removeAll();
+            Node<T>* walker = RHS.front();
+            //Have to reverse the insertion
+            SinglyLinkedList temp;
+            while(walker!=NULL){
+                temp.insert(walker->_key,walker->_data);
+                walker=walker->_next;
+            }
+            walker = temp.front();
             while (walker!=NULL) {
-                this->insert(walker->front()->_data,walker->front()->_key);
+                this->insert(walker->_key,walker->_data);
                 walker=walker->_next;
             }
         }
@@ -57,7 +65,7 @@ template<typename T>
 SinglyLinkedList<T>::SinglyLinkedList(const SinglyLinkedList<T>& RHS){copy(RHS);}
 
 template <typename T>
-SinglyLinkedList<T>& SinglyLinkedList<T>::operator=(const SinglyLinkedList<T>& RHS){
+SinglyLinkedList<T>& SinglyLinkedList<T>::operator=(const SinglyLinkedList<T> & RHS){
     copy(RHS);
     return *this;
 }
@@ -65,11 +73,6 @@ SinglyLinkedList<T>& SinglyLinkedList<T>::operator=(const SinglyLinkedList<T>& R
 template<typename T>
 SinglyLinkedList<T>::~SinglyLinkedList(){
     removeAll();
-}
-
-template<typename T>
-Node<T>* SinglyLinkedList<T>::front(){
-    return head;
 }
 
 template<typename T>
@@ -85,7 +88,10 @@ void SinglyLinkedList<T>::insert(int key){
     temp->_next=head;
     head= temp;
 }
-
+template<typename T>
+Node<T>* SinglyLinkedList<T>::front() const{
+    return head;
+}
 template<typename T>
 void SinglyLinkedList<T>::remove(){
     if(head!=NULL){

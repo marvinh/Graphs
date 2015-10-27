@@ -35,18 +35,25 @@ private:
     void dfsUtil(int v);
     int* visited;
     int tableSize;
-    SinglyLinkedList<T>** table;
+    SinglyLinkedList<T>* table;
 };
 template <typename T>
 Graph<T>::Graph(int size){
-    if(size>0)
+    
+    if(size>0){
         tableSize=size;
-    else
+    }
+    else{
         tableSize=1;
+    }
+    
     visited = new int[tableSize];
-    for(int i=0;i<tableSize;i++)
+    
+    for(int i=0;i<tableSize;i++){
         visited[i]=0;
-    table = new SinglyLinkedList<T>*[tableSize]();
+    }
+    
+    table = new SinglyLinkedList<T>[tableSize]();
 }
 template <typename T>
 Graph<T>::~Graph(){
@@ -58,12 +65,7 @@ template <typename T>
 void Graph<T>::addEdge(int v,int key,T data){
     //assert(v>-1&&v<tableSize&&key>-1&&key<tableSize);
     if((v>-1&&v<tableSize)&&(key>-1&&key<tableSize)){
-        if(table[v]==NULL){
-            table[v]= new SinglyLinkedList<T>;
-            table[v]->insert(key,data);
-        }else{
-            table[v]->insert(key,data);
-        }
+        table[v].insert(key,data);
     }else{
         std::cout<<"invalid arguments\n";
     }
@@ -84,18 +86,17 @@ void Graph<T>::addEdge(int v,int key){
 }
 template <typename T>
 void Graph<T>::addVertcies(int addv){
+    int orginalSize = tableSize;
     tableSize=tableSize+addv;
     visited = new int[tableSize];
-    SinglyLinkedList<T> **tempTable =  new SinglyLinkedList<T>*[tableSize]();
-    for(int i = 0; i< tableSize;i++){
+    SinglyLinkedList<T>* tempTable = new SinglyLinkedList<T>[tableSize]();
+    for(int i = 0; i< orginalSize;i++){
         visited[i]=0;
-        if(table[i]!=NULL){
-            //overloaded operater will contents of list
-            tempTable[i]=table[i];
-        }
+        tempTable[i].operator=(table[i]);
     }
     //set address of temp table to graphs table
-    table = tempTable;
+    
+    table=tempTable;
 }
 template <typename T>
 void Graph<T>::dfsUtil(int v){
@@ -132,9 +133,7 @@ template<typename T>
 void Graph<T>::print(){
     for (int v=0; v<tableSize; v++) {
         std::cout<<"[["<<v<<"]->";
-        if(table[v]!=NULL){
-            table[v]->print();
-        }
+        table[v].print();
         std::cout<<"]\n";
     }
     

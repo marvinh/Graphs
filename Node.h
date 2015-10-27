@@ -33,7 +33,7 @@ Node<T>::Node(int key, T data):_key(key),_data(data),_next(NULL)
 template <typename V>
 std::ostream& operator<<(std::ostream& outs, const Node<V>& PrintMe)
 {
-    if(PrintMe._data!='\0'){
+    if(PrintMe._data!=NULL){
         outs<<"["<<PrintMe._key<<","<<PrintMe._data<<"]->";
     }else{
         outs<<"["<<PrintMe._key<<"]->";
