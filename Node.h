@@ -21,23 +21,15 @@ public:
     Node* _next=NULL;
 };
 template<typename T>
-Node<T>::Node():_key(-1),_data(NULL),_next(NULL)
-{
-    
-}
+Node<T>::Node():_key(-1),_data(NULL),_next(NULL){}
+
 template<typename T>
-Node<T>::Node(int key, T data):_key(key),_data(data),_next(NULL)
-{
-    
-}
+Node<T>::Node(int key, T data):_key(key),_data(data),_next(NULL){}
+
 template <typename V>
 std::ostream& operator<<(std::ostream& outs, const Node<V>& PrintMe)
 {
-    if(PrintMe._data!=NULL){
-        outs<<"["<<PrintMe._key<<","<<PrintMe._data<<"]->";
-    }else{
-        outs<<"["<<PrintMe._key<<"]->";
-    }
+    outs<<"["<<PrintMe._key<<","<<PrintMe._data<<"]->";
     return outs;
 }
 
