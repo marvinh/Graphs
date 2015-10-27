@@ -29,12 +29,10 @@ private:
 };
 template <typename T>
 Stack<T>::Stack(){
-    s = NULL;
 }
-
 template <typename T>
 Stack<T>::~Stack(){
-    delete s;
+
 }
 template <typename T>
 void Stack<T>::push(int key, T data){
@@ -56,7 +54,6 @@ template <typename T>
 Node<T>* Stack<T>::top(){
     return s.front();
 }
-
 template <typename T>
 bool Stack<T>::empty(){
     return s.empty();
