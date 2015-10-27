@@ -32,13 +32,17 @@ int main(int argc, const char * argv[]) {
     graph1.addEdge(4,5,'f');
     graph1.addEdge(5,6,'g');
     graph1.print();
+    
+    std::cout<<"\nadd one more edge and new verticie\n";
+    
     graph1.addVertcies(1);
-    std::cout<<"\n";
+    
     graph1.addEdge(0,9,'z');
     graph1.print();
-	graph1.dfs(0);
-	std::cout<<"\n";
-	graph1.print();
+    std::cout<<"\n\nrun dfs\n";
+    graph1.dfs(0);
+    std::cout<<"\n\n";
+	
 
 
     return 0;
