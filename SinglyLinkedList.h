@@ -15,7 +15,7 @@ class SinglyLinkedList{
 public:
     /*
      Basic SinglyLinkedList will only insert at head and remove from head
-     .Includes function to get the front of the list, empty(),and a print function.
+     .Includes function to get the front of the list, empty(),and a print().
      */
     SinglyLinkedList();
     SinglyLinkedList(const SinglyLinkedList<T>& RHS);
@@ -60,7 +60,6 @@ template<typename T>
 SinglyLinkedList<T>::SinglyLinkedList():head(NULL){
     
 }
-
 template<typename T>
 SinglyLinkedList<T>::SinglyLinkedList(const SinglyLinkedList<T>& RHS){copy(RHS);}
 
@@ -71,9 +70,7 @@ SinglyLinkedList<T>& SinglyLinkedList<T>::operator=(const SinglyLinkedList<T> & 
 }
 
 template<typename T>
-SinglyLinkedList<T>::~SinglyLinkedList(){
-    removeAll();
-}
+SinglyLinkedList<T>::~SinglyLinkedList(){removeAll();}
 
 template<typename T>
 void SinglyLinkedList<T>::insert(int key,T data){
@@ -88,10 +85,10 @@ void SinglyLinkedList<T>::insert(int key){
     temp->_next=head;
     head= temp;
 }
+
 template<typename T>
-Node<T>* SinglyLinkedList<T>::front() const{
-    return head;
-}
+Node<T>* SinglyLinkedList<T>::front() const{return head;}
+
 template<typename T>
 void SinglyLinkedList<T>::remove(){
     if(head!=NULL){
@@ -101,10 +98,10 @@ void SinglyLinkedList<T>::remove(){
         nodeToDelete=NULL;
     }
 }
+
 template<typename T>
-bool SinglyLinkedList<T>::empty(){
-    return head==NULL;
-}
+bool SinglyLinkedList<T>::empty(){return head==NULL;}
+
 template<typename T>
 void SinglyLinkedList<T>::print(){
     Node<T>* walker=head;

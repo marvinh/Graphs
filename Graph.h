@@ -16,7 +16,7 @@ public:
      Basic Graph class. Includes functions to add edge,
      add verticies, dfs traversal, and a print of the graph.
      */
-    //defined the size of the table to begin with
+    //define a init size for the table to begin with
     Graph(int size);
     ~Graph();
     //add edge to verticie include vertecie key and data
@@ -31,7 +31,7 @@ public:
     void print();
 private:
     //need to reset visited array
-    //but still need to find disconnects
+    //and find disconnects
     void dfsUtil(int v);
     int* visited;
     int tableSize;
@@ -39,20 +39,16 @@ private:
 };
 template <typename T>
 Graph<T>::Graph(int size){
-    
     if(size>0){
         tableSize=size;
     }
     else{
         tableSize=1;
     }
-    
     visited = new int[tableSize];
-    
     for(int i=0;i<tableSize;i++){
         visited[i]=0;
     }
-    
     table = new SinglyLinkedList<T>[tableSize]();
 }
 template <typename T>
@@ -74,12 +70,7 @@ template <typename T>
 void Graph<T>::addEdge(int v,int key){
     //assert(v>-1&&v<tableSize&&key>-1&&key<tableSize);
     if((v>-1&&v<tableSize)&&(key>-1&&key<tableSize)){
-        if(table[v]==NULL){
-            table[v]= new SinglyLinkedList<T>;
-            table[v]->insert(key);
-        }else{
-            table[v]->insert(key);
-        }
+        table[v].insert(key);
     }else{
         std::cout<<"invalid arguments\n";
     }
@@ -88,31 +79,36 @@ template <typename T>
 void Graph<T>::addVertcies(int addv){
     int orginalSize = tableSize;
     tableSize=tableSize+addv;
+    
+    delete [] visited;
     visited = new int[tableSize];
+    
     SinglyLinkedList<T>* tempTable = new SinglyLinkedList<T>[tableSize]();
-    for(int i = 0; i< orginalSize;i++){
+    for(int i = 0; i<orginalSize;i++){
         visited[i]=0;
         tempTable[i].operator=(table[i]);
     }
-    //set address of temp table to graphs table
-    
-    table=tempTable;
+    //shallow copy tempTable
+    delete [] table;
+    table = tempTable;
 }
 template <typename T>
 void Graph<T>::dfsUtil(int v){
-    Stack<T>* S = new Stack<T>();
-    S->push(v);
-    while(!S->empty()){
-        v = S->pop()->_key;
+    Stack<T> S;
+    S.push(v);
+    while(!S.empty()){
+        //pop returns a new node/container
+        //which needs to be deleted
+        Node<T>* temp = S.pop();
+        v = temp->_key;
+        delete temp;
         if(visited[v]!=1){
             visited[v]=1;
             std::cout<<v<<" ";
-            if(table[v]!=NULL){
-                Node<T>* walker = table[v]->front();
-                while(walker!=NULL){
-                    S->push(walker->_key);
-                    walker=walker->_next;
-                }
+            Node<T>* walker = table[v].front();
+            while(walker!=NULL){
+                S.push(walker->_key);
+                walker=walker->_next;
             }
         }
     }

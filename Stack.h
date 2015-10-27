@@ -23,28 +23,21 @@ public:
     void push(int key, T data);
     void push(int key);
     bool empty();
-    
 private:
     SinglyLinkedList<T> s;
 };
 template <typename T>
-Stack<T>::Stack(){
-    s = NULL;
-}
+Stack<T>::Stack(){}
 
 template <typename T>
-Stack<T>::~Stack(){
-    delete s;
-}
-template <typename T>
-void Stack<T>::push(int key, T data){
-    s.insert(key,data);
-}
+Stack<T>::~Stack(){}
 
 template <typename T>
-void Stack<T>::push(int key){
-    s.insert(key);
-}
+void Stack<T>::push(int key, T data){s.insert(key,data);}
+
+template <typename T>
+void Stack<T>::push(int key){s.insert(key);}
+
 template <typename T>
 Node<T>* Stack<T>::pop(){
     Node<T>* popped = new Node<T>(top()->_key,top()->_data);
@@ -53,12 +46,9 @@ Node<T>* Stack<T>::pop(){
 }
 
 template <typename T>
-Node<T>* Stack<T>::top(){
-    return s.front();
-}
+Node<T>* Stack<T>::top(){return s.front();}
 
 template <typename T>
-bool Stack<T>::empty(){
-    return s.empty();
-}
+bool Stack<T>::empty(){return s.empty();}
+
 #endif /* Stack_h */
