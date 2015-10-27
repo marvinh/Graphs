@@ -15,7 +15,7 @@ class SinglyLinkedList{
 public:
     /*
      Basic SinglyLinkedList will only insert at head and remove from head
-     .Includes function to get the front of the list, empty(),and a print function.
+     .Includes function to get the front of the list, empty(),and a print().
      */
     SinglyLinkedList();
     SinglyLinkedList(const SinglyLinkedList<T>& RHS);
@@ -60,7 +60,6 @@ template<typename T>
 SinglyLinkedList<T>::SinglyLinkedList():head(NULL){
     
 }
-
 template<typename T>
 SinglyLinkedList<T>::SinglyLinkedList(const SinglyLinkedList<T>& RHS){copy(RHS);}
 
