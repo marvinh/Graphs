@@ -17,10 +17,11 @@ int main(int argc, const char * argv[]) {
     //this adds 9 more verticies
     graph1.addVertcies(9);
     
-    //This example is from class
-    //But include some islands
+    //This example is similar to 
+	//the first done in class
+    //but includes some islands
     //or disconnects
-    
+
     std::cout<<"graph1: \n";
     graph1.addEdge(0,1,'b');
     graph1.addEdge(0,2,'c');
@@ -30,14 +31,14 @@ int main(int argc, const char * argv[]) {
     graph1.addEdge(3,4,'e');
     graph1.addEdge(4,5,'f');
     graph1.addEdge(5,6,'g');
-    
-    
     graph1.print();
     graph1.addVertcies(1);
     std::cout<<"\n";
     graph1.addEdge(0,9,'z');
     graph1.print();
-    
+	graph1.dfs(0);
+	std::cout<<"\n";
+	graph1.print();
 
 
     return 0;
