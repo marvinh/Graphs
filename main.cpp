@@ -10,40 +10,45 @@
 #include "Graph.h"
 int main(int argc, const char * argv[]) {
     
-
+    
     //graph needs init size
-    Graph<char> graph1(1);
+    Graph<char> graph1(7);
+    std::cout<<"connected graph: \n";
     
-    //this adds 9 more verticies
-    graph1.addVertcies(9);
+    graph1.addEdge(0,1);
+    graph1.addEdge(0,3);
+    graph1.addEdge(1,2);
+    graph1.addEdge(3,2);
+    graph1.addEdge(3,4);
+    graph1.addEdge(2,5);
+    graph1.addEdge(4,5);
+    graph1.addEdge(5,6);
+    graph1.addEdge(6,6);
     
-    //This example is similar to 
-	//the first done in class
-    //but includes some islands
-    //or disconnects
-
-    std::cout<<"graph1: \n";
-    graph1.addEdge(0,1,'b');
-    graph1.addEdge(0,2,'c');
-    graph1.addEdge(1,3,'d');
-    graph1.addEdge(2,5,'f');
-    graph1.addEdge(5,5,'f');
-    graph1.addEdge(3,4,'e');
-    graph1.addEdge(4,5,'f');
-    graph1.addEdge(5,6,'g');
-    graph1.print();
-    
-    std::cout<<"\nadd one more edge and new verticie\n";
-    
-    graph1.addVertcies(1);
-    
-    graph1.addEdge(0,9,'z');
     graph1.print();
     std::cout<<"\n\nrun dfs\n";
-	graph1.dfs(0);
+    graph1.dfs(0);
     std::cout<<"\n\n";
-	
-
-
+    
+    
+    Graph<char> graph2(10);
+    std::cout<<"graph with disconnects: \n";
+    
+    graph2.addEdge(0,1);
+    graph2.addEdge(0,3);
+    graph2.addEdge(1,2);
+    graph2.addEdge(3,2);
+    graph2.addEdge(3,4);
+    graph2.addEdge(2,5);
+    graph2.addEdge(4,5);
+    graph2.addEdge(5,6);
+    graph2.addEdge(6,6);
+    graph2.addEdge(8,9);
+    
+    graph2.print();
+    std::cout<<"\n\nrun dfs\n";
+    graph2.dfs(0);
+    std::cout<<"\n\n";
+    
     return 0;
 }

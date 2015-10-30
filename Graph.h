@@ -16,25 +16,47 @@ public:
      Basic Graph class. Includes functions to add edge,
      add verticies, dfs traversal, and a print of the graph.
      */
+    
     //define a init size for the table to begin with
     Graph(int size);
+    
     ~Graph();
+    
     //add edge to verticie include vertecie key and data
     void addEdge(int v,int key,T data);
+    
     //add edge to verticie include vertecie key
     void addEdge(int v,int key);
+    
     //add how ever many new verticies
     void addVertcies(int addV);
-    //dfs traversal
+    
+    /*dfs traversal
+     calls private method dfsutil to find
+     every disconnect then resets the visited
+     array
+    */
     void dfs(int v);
     
+    /*
+     prim
+     calls private method primUtil to find
+     every disconnect then resets the visited
+     array
+     */
+    void prim(int v);
+    
     void print();
+    
 private:
-    //need to reset visited array
-    //and find disconnects
+    void primUtil(int v);
     void dfsUtil(int v);
     int* visited;
     int tableSize;
+    //not sure about this but prefer it over timeStamping
+    //when I need to do a topological sort I insert it
+    //in reverse order and pop
+    Stack<T> topologicalSortStack;
     SinglyLinkedList<T>* table;
 };
 template <typename T>
@@ -96,32 +118,48 @@ template <typename T>
 void Graph<T>::dfsUtil(int v){
     Stack<T> S;
     S.push(v);
-    while(!S.empty()){
-        //pop returns a new node/container
-        //which needs to be deleted
-        Node<T>* temp = S.pop();
-        v = temp->_key;
-        delete temp;
-        if(visited[v]!=1){
-            visited[v]=1;
-            std::cout<<v<<" ";
-            Node<T>* walker = table[v].front();
-            while(walker!=NULL){
-                S.push(walker->_key);
-                walker=walker->_next;
+    while(visited[v]!=1){
+        visited[v]=1;
+        Node<T>* walker = table[v].front();
+        while(walker!=NULL) {
+            v=walker->_key;
+            if(visited[v]!=1){
+                S.push(v);
             }
+            walker=walker->_next;
         }
     }
-    for(int i = 0;i < tableSize ; i++){
-        if(visited[i]!=1){
-            dfsUtil(i);
+    while(!S.empty()){
+        Node<T>* temp = S.pop();
+        int v = temp->_key;
+        delete temp;
+        if(visited[v]==1){
+            topologicalSortStack.push(v);
+        }else{
+            dfsUtil(v);
         }
     }
 }
 template <typename T>
 void Graph<T>::dfs(int v){
+    
     dfsUtil(v);
-    for(int i=0;i<tableSize;i++){
+    //check for disconnects
+    for (int i=0;i<tableSize;i++) {
+        if(visited[i]!=1){
+            std::cout<<"disconnect @ "<<i<<std::endl;
+            dfsUtil(i);
+        }
+    }
+    //topologicalSort print out
+    while(!topologicalSortStack.empty()){
+        Node<T>* temp = topologicalSortStack.pop();
+        int v = temp->_key;
+        std::cout<<v<<" ";
+        delete temp;
+    }
+    //reset visited
+    for (int i=0;i<tableSize;i++){
         visited[i]=0;
     }
 }
