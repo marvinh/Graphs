@@ -37,14 +37,6 @@ public:
     */
     void dfs(int v);
     
-    /*
-     prim
-     calls private method primUtil to find
-     every disconnect then resets the visited
-     array
-     */
-    void prim(int v);
-    
     void print();
     
 private:
