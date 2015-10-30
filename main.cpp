@@ -26,6 +26,7 @@ int main(int argc, const char * argv[]) {
     graph1.addEdge(6,6);
     
     graph1.print();
+<<<<<<< HEAD
     std::cout<<"\n\nrun dfs\n";
     graph1.dfs(0);
     std::cout<<"\n\n";
@@ -50,5 +51,20 @@ int main(int argc, const char * argv[]) {
     graph2.dfs(0);
     std::cout<<"\n\n";
     
+=======
+    
+    std::cout<<"\nadd one more edge and new verticie\n";
+    
+    graph1.addVertcies(1);
+    
+    graph1.addEdge(0,9,'z');
+    graph1.print();
+    std::cout<<"\n\nrun dfs\n";
+    graph1.dfs(0);
+    std::cout<<"\n\n";
+	
+
+
+>>>>>>> origin/master
     return 0;
 }
