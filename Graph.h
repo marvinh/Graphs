@@ -16,6 +16,7 @@ public:
      Basic Graph class. Includes functions to add edge,
      add verticies, dfs traversal, and a print of the graph.
      */
+    
     //define a init size for the table to begin with
     Graph(int size);
     
@@ -30,10 +31,10 @@ public:
     //add how ever many new verticies
     void addVertcies(int addV);
     
-    /*dfs traversal
+    /*dfs
      calls private method dfsutil to find
-     every disconnect then resets the visited
-     array
+     every disconnect prints a topological sort
+     then resets the visited array
     */
     void dfs(int v);
     
@@ -50,7 +51,6 @@ private:
     Stack<T> topologicalSortStack;
     SinglyLinkedList<T>* table;
 };
-
 template <typename T>
 Graph<T>::Graph(int size){
     if(size>0){
@@ -65,14 +65,12 @@ Graph<T>::Graph(int size){
     }
     table = new SinglyLinkedList<T>[tableSize]();
 }
-
 template <typename T>
 Graph<T>::~Graph(){
     tableSize=0;
     delete [] visited;
     delete [] table;
 }
-
 template <typename T>
 void Graph<T>::addEdge(int v,int key,T data){
     //assert(v>-1&&v<tableSize&&key>-1&&key<tableSize);
@@ -82,7 +80,6 @@ void Graph<T>::addEdge(int v,int key,T data){
         std::cout<<"invalid arguments\n";
     }
 }
-
 template <typename T>
 void Graph<T>::addEdge(int v,int key){
     //assert(v>-1&&v<tableSize&&key>-1&&key<tableSize);
@@ -92,7 +89,6 @@ void Graph<T>::addEdge(int v,int key){
         std::cout<<"invalid arguments\n";
     }
 }
-
 template <typename T>
 void Graph<T>::addVertcies(int addv){
     int orginalSize = tableSize;
@@ -110,7 +106,6 @@ void Graph<T>::addVertcies(int addv){
     delete [] table;
     table = tempTable;
 }
-
 template <typename T>
 void Graph<T>::dfsUtil(int v){
     Stack<T> S;
@@ -124,20 +119,6 @@ void Graph<T>::dfsUtil(int v){
                 S.push(v);
             }
             walker=walker->_next;
-    while(!S.empty()){
-        //pop returns a new node/container
-        //which needs to be deleted
-        Node<T>* temp = S.pop();
-        v = temp->_key;
-        delete temp;
-        if(visited[v]!=1){
-            visited[v]=1;
-            std::cout<<v<<" ";
-            Node<T>* walker = table[v].front();
-            while(walker!=NULL){
-                S.push(walker->_key);
-                walker=walker->_next;
-            }
         }
     }
     while(!S.empty()){
@@ -151,7 +132,6 @@ void Graph<T>::dfsUtil(int v){
         }
     }
 }
-
 template <typename T>
 void Graph<T>::dfs(int v){
     
@@ -175,7 +155,6 @@ void Graph<T>::dfs(int v){
         visited[i]=0;
     }
 }
-
 template<typename T>
 void Graph<T>::print(){
     for (int v=0; v<tableSize; v++) {
@@ -183,5 +162,6 @@ void Graph<T>::print(){
         table[v].print();
         std::cout<<"]\n";
     }
+    
 }
 #endif /* Graph_h */
